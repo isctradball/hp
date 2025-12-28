@@ -327,6 +327,107 @@ section {
   color: #7b1e1e;
 }
 
+.poll-bars {
+  margin-top: 20px;
+}
+
+.bar {
+  width: 100%;
+  height: 16px;
+  background: #e5e5e5;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.bar-inner {
+  height: 100%;
+  width: 0;
+  transition: width 1s ease;
+}
+
+.know-bar {
+  background: #7b1e1e;   /* 赤系 */
+}
+
+.dontknow-bar {
+  background: #999;
+}
+
+.bar-label {
+  font-size: 14px;
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+/* ===== 投票バー ===== */
+.bar-wrapper {
+  position: relative;
+  width: 100%;
+  height: 24px;
+  background: #eee;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+.bar-left,
+.bar-right {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: width 0.8s ease;
+}
+
+.bar-left {
+  left: 0;
+  width: 0%;
+  background: #b23b3b; /* 知ってる（赤系） */
+}
+
+.bar-right {
+  right: 0;
+  width: 0%;
+  background: #666; /* 知らない（グレー） */
+}
+
+.bar-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+
+
+.poll {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.poll-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.poll button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.poll-result p {
+  margin: 8px 0;
+}
+
+
+
 /*フッター*/
 footer {
   background-color: #f0f0f0;

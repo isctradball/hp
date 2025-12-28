@@ -112,6 +112,44 @@
   </div>
 </section>
 
+<section class="poll" aria-labelledby="poll-title">
+  <h2 id="poll-title">サイクルサッカーを知っていますか？</h2>
+
+  <!-- 投票ボタン -->
+  <div class="poll-buttons" id="poll-buttons">
+    <button type="button" id="know">知っている</button>
+    <button type="button" id="dontknow">知らなかった</button>
+  </div>
+
+  <!-- 結果表示（1本バー・左右から伸びる） -->
+  <div class="poll-bars" id="poll-bars" hidden>
+
+    <!-- 横棒 -->
+    <div class="bar-wrapper">
+      <div class="bar-left know-bar"></div>
+      <div class="bar-right dontknow-bar"></div>
+    </div>
+
+    <!-- 割合テキスト -->
+    <div class="bar-info">
+      <span>
+        知っている <strong><span id="know-rate">0</span>%</strong>
+      </span>
+      <span>
+        知らなかった <strong><span id="dontknow-rate">0</span>%</strong>
+      </span>
+    </div>
+
+    <!-- 回答数 -->
+    <p class="poll-count">
+      回答数：<span id="total">0</span>
+    </p>
+
+  </div>
+</section>
+
+
+
 <section class="features">
   <div class="features-inner">
 
@@ -322,6 +360,82 @@
   }, 8000);
 
 </script>
+<script>
+const knowBtn = document.getElementById('know');
+const dontKnowBtn = document.getElementById('dontknow');
+
+const buttonsBox = document.getElementById('poll-buttons');
+const barsBox = document.getElementById('poll-bars');
+
+const knowRate = document.getElementById('know-rate');
+const dontKnowRate = document.getElementById('dontknow-rate');
+const totalSpan = document.getElementById('total');
+
+const knowBar = document.querySelector('.know-bar');
+const dontKnowBar = document.querySelector('.dontknow-bar');
+
+const DATA_KEY = 'cycle_soccer_poll_data';
+const VOTED_KEY = 'cycle_soccer_voted';
+
+function getData() {
+  const data = localStorage.getItem(DATA_KEY);
+  return data ? JSON.parse(data) : { know: 0, dontknow: 0 };
+}
+
+function saveData(data) {
+  localStorage.setItem(DATA_KEY, JSON.stringify(data));
+}
+
+function updateView() {
+  const data = getData();
+  const total = data.know + data.dontknow || 1;
+
+  const knowPercent = Math.round((data.know / total) * 100);
+  const dontKnowPercent = 100 - knowPercent;
+
+  knowRate.textContent = knowPercent;
+  dontKnowRate.textContent = dontKnowPercent;
+  totalSpan.textContent = total;
+
+  // 初期化
+  knowBar.style.width = '0%';
+  dontKnowBar.style.width = '0%';
+
+  // 次フレームでアニメーション
+  requestAnimationFrame(() => {
+    knowBar.style.width = knowPercent + '%';
+    dontKnowBar.style.width = dontKnowPercent + '%';
+  });
+
+  buttonsBox.style.display = 'none';
+  barsBox.hidden = false;
+}
+
+function vote(type) {
+  if (localStorage.getItem(VOTED_KEY)) return;
+
+  const data = getData();
+  data[type]++;
+  saveData(data);
+
+  localStorage.setItem(VOTED_KEY, 'true');
+  updateView();
+}
+
+knowBtn.addEventListener('click', () => vote('know'));
+dontKnowBtn.addEventListener('click', () => vote('dontknow'));
+
+if (localStorage.getItem(VOTED_KEY)) {
+  updateView();
+}
+function resetPoll() {
+  localStorage.removeItem('cycle_soccer_poll_data');
+  localStorage.removeItem('cycle_soccer_voted');
+  alert('投票をリセットしました');
+}
+
+</script>
+
 
 
 
