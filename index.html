@@ -144,6 +144,11 @@
     <p class="poll-count">
       回答数：<span id="total">0</span>
     </p>
+    <p class="poll-your-vote" id="your-vote"></p>
+    <p class="poll-learn" id="poll-learn" hidden>
+      <a href="about.html#sport">→ サイクルサッカーについて知る</a>
+    </p>
+
 
   </div>
 </section>
@@ -243,6 +248,7 @@
 
 <script async src="https://www.instagram.com/embed.js"></script>
 <script async src="https://platform.twitter.com/widgets.js"></script>
+<button id="reset-poll">管理者用</button>
 
 
 
@@ -360,81 +366,173 @@
   }, 8000);
 
 </script>
+
+<!-- Firebase SDK を追加 -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
 <script>
-const knowBtn = document.getElementById('know');
-const dontKnowBtn = document.getElementById('dontknow');
+(() => {
+  /* ===== Firebase 初期化 ===== */
+  const firebaseConfig = {
+    apiKey: "AIzaSyBi-pT86QfDl57at1BGuDvzietWSg74h1o",
+    authDomain: "cycle-soccer-poll-f59d1.firebaseapp.com",
+    projectId: "cycle-soccer-poll-f59d1",
+    storageBucket: "cycle-soccer-poll-f59d1.appspot.com",
+    messagingSenderId: "516450182936",
+    appId: "1:516450182936:web:e5e3303fcc2a0f6e6ae06d"
+  };
 
-const buttonsBox = document.getElementById('poll-buttons');
-const barsBox = document.getElementById('poll-bars');
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
 
-const knowRate = document.getElementById('know-rate');
-const dontKnowRate = document.getElementById('dontknow-rate');
-const totalSpan = document.getElementById('total');
+  /* ===== 要素 ===== */
+  const knowBtn = document.getElementById('know');
+  const dontBtn = document.getElementById('dontknow');
 
-const knowBar = document.querySelector('.know-bar');
-const dontKnowBar = document.querySelector('.dontknow-bar');
+  const buttonsBox = document.getElementById('poll-buttons');
+  const barsBox = document.getElementById('poll-bars');
 
-const DATA_KEY = 'cycle_soccer_poll_data';
-const VOTED_KEY = 'cycle_soccer_voted';
+  const knowRateEl = document.getElementById('know-rate');
+  const dontRateEl = document.getElementById('dontknow-rate');
+  const totalEl = document.getElementById('total');
+  const yourVoteEl = document.getElementById('your-vote');
+  const learnLink = document.getElementById('poll-learn');
 
-function getData() {
-  const data = localStorage.getItem(DATA_KEY);
-  return data ? JSON.parse(data) : { know: 0, dontknow: 0 };
-}
+  const knowBar = document.querySelector('.know-bar');
+  const dontBar = document.querySelector('.dontknow-bar');
 
-function saveData(data) {
-  localStorage.setItem(DATA_KEY, JSON.stringify(data));
-}
+  const POLL_REF = db.collection('poll').doc('cycle_soccer');
+  const VOTED_KEY = 'cycle_soccer_voted';
 
-function updateView() {
-  const data = getData();
-  const total = data.know + data.dontknow || 1;
+  /* ===== 結果表示更新 ===== */
+  function render(data) {
+    const total = data.know + data.dont;
+    if (total === 0) return;
 
-  const knowPercent = Math.round((data.know / total) * 100);
-  const dontKnowPercent = 100 - knowPercent;
+    const knowRate = Math.round((data.know / total) * 100);
+    const dontRate = 100 - knowRate;
 
-  knowRate.textContent = knowPercent;
-  dontKnowRate.textContent = dontKnowPercent;
-  totalSpan.textContent = total;
+    knowRateEl.textContent = knowRate;
+    dontRateEl.textContent = dontRate;
+    totalEl.textContent = total;
 
-  // 初期化
-  knowBar.style.width = '0%';
-  dontKnowBar.style.width = '0%';
+    // アニメーション
+    knowBar.style.width = '0%';
+    dontBar.style.width = '0%';
+    requestAnimationFrame(() => {
+      knowBar.style.width = knowRate + '%';
+      dontBar.style.width = dontRate + '%';
+    });
 
-  // 次フレームでアニメーション
-  requestAnimationFrame(() => {
-    knowBar.style.width = knowPercent + '%';
-    dontKnowBar.style.width = dontKnowPercent + '%';
+    const voted = localStorage.getItem(VOTED_KEY);
+
+    knowBar.classList.remove('voted', 'not-voted');
+    dontBar.classList.remove('voted', 'not-voted');
+
+    if (voted === 'know') {
+      yourVoteEl.textContent = 'あなたの投票：知っている';
+      knowBar.classList.add('voted');
+      dontBar.classList.add('not-voted');
+      learnLink.hidden = true;
+    }
+
+    if (voted === 'dont') {
+      yourVoteEl.textContent = 'あなたの投票：知らなかった';
+      dontBar.classList.add('voted');
+      knowBar.classList.add('not-voted');
+      learnLink.hidden = false;
+    }
+
+    buttonsBox.style.display = 'none';
+    barsBox.hidden = false;
+  }
+
+  /* ===== 初期取得（リアルタイム） ===== */
+  POLL_REF.onSnapshot(doc => {
+    if (doc.exists) {
+      render(doc.data());
+    } else {
+      // ドキュメントがなければ作成
+      POLL_REF.set({ know: 0, dont: 0 });
+    }
   });
 
-  buttonsBox.style.display = 'none';
-  barsBox.hidden = false;
-}
+  /* ===== 投票 ===== */
+  async function vote(type) {
+    if (localStorage.getItem(VOTED_KEY)) return;
 
-function vote(type) {
-  if (localStorage.getItem(VOTED_KEY)) return;
+    try {
+      await POLL_REF.update({
+        [type]: firebase.firestore.FieldValue.increment(1)
+      });
+      localStorage.setItem(VOTED_KEY, type);
+      const doc = await POLL_REF.get();
+      if (doc.exists) render(doc.data());
 
-  const data = getData();
-  data[type]++;
-  saveData(data);
+    } catch (err) {
+      console.error('投票に失敗しました', err);
+      alert('投票に失敗しました。管理者に連絡してください。');
+    }
+  }
 
-  localStorage.setItem(VOTED_KEY, 'true');
-  updateView();
-}
+  knowBtn.addEventListener('click', () => vote('know'));
+  dontBtn.addEventListener('click', () => vote('dont'));
+})();
+</script>
 
-knowBtn.addEventListener('click', () => vote('know'));
-dontKnowBtn.addEventListener('click', () => vote('dontknow'));
 
-if (localStorage.getItem(VOTED_KEY)) {
-  updateView();
-}
+
+<script>
 function resetPoll() {
   localStorage.removeItem('cycle_soccer_poll_data');
-  localStorage.removeItem('cycle_soccer_voted');
+  localStorage.removeItem('cycle_soccer_poll_voted');
   alert('投票をリセットしました');
 }
 
 </script>
+
+<!-- 管理者用リセットボタン -->
+
+<script>
+const POLL_REF = firebase.firestore().collection('poll').doc('cycle_soccer');
+
+document.getElementById('reset-poll').addEventListener('click', async () => {
+  // 簡易認証：パスワード入力
+  const password = prompt("管理者用パスワード");
+  if (password !== "reset") return alert("パスワードが違います");
+
+  if (!confirm("本当に投票をリセットしますか？")) return;
+
+  try {
+    // Firestore 上の全投票をリセット
+    await POLL_REF.set({ know: 0, dont: 0 });
+
+    // 全ユーザーの localStorage はリセットできないので、
+    // 管理者だけは自分の localStorage をクリアして画面更新
+    localStorage.removeItem('cycle_soccer_voted');
+
+    // ページ上の表示も初期化
+    document.getElementById('poll-buttons').style.display = 'flex';
+    document.getElementById('poll-bars').hidden = true;
+    document.getElementById('your-vote').textContent = '';
+    document.getElementById('poll-learn').hidden = true;
+    document.getElementById('know-rate').textContent = '0';
+    document.getElementById('dontknow-rate').textContent = '0';
+    document.getElementById('total').textContent = '0';
+    document.querySelector('.know-bar').style.width = '0%';
+    document.querySelector('.dontknow-bar').style.width = '0%';
+
+    alert("投票をリセットしました（全ユーザー）");
+  } catch (err) {
+    console.error(err);
+    alert("リセットに失敗しました");
+  }
+});
+</script>
+
+
+
 
 
 
