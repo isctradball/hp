@@ -845,8 +845,11 @@ footer {
   .grade,
   .member-voice,
   .join-intro,
-  .join-section {
-    padding: 0 5px;
+  .join-section,
+  .schedule-top,
+  .latest-news,
+  .sns-area {
+    padding: 0 0px;
   }
 }
 /*about.html関連*/
