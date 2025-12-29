@@ -248,7 +248,7 @@
 
 <script async src="https://www.instagram.com/embed.js"></script>
 <script async src="https://platform.twitter.com/widgets.js"></script>
-<button id="reset-poll">管理者用ボタン</button>
+<button id="reset-poll">管理者用ボン</button>
 
 
 
@@ -435,21 +435,24 @@
       knowBar.classList.add('voted');
       dontBar.classList.add('not-voted');
       learnLink.hidden = true;
-    }
 
-    if (voted === 'dont') {
+      buttonsBox.style.display = 'none';
+      barsBox.hidden = false;
+    } else if (voted === 'dont') {
       yourVoteEl.textContent = 'あなたの投票：知らなかった';
       dontBar.classList.add('voted');
       knowBar.classList.add('not-voted');
       learnLink.hidden = false;
-    }
-    if (!voted) {
+
+      buttonsBox.style.display = 'none';
+      barsBox.hidden = false;
+    } else {
+    // 投票していない場合
       buttonsBox.style.display = 'flex';
       barsBox.hidden = true;
+      yourVoteEl.textContent = '';
+      learnLink.hidden = true;
     }
-
-    buttonsBox.style.display = 'none';
-    barsBox.hidden = false;
   }
 
   /* ===== 初期取得（リアルタイム） ===== */
