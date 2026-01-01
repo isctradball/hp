@@ -833,7 +833,9 @@ footer {
 #content,
 #report,
 #result,
-#news  {
+#news,
+#contact,
+#flow  {
   scroll-margin-top: 90px;
 }
 
@@ -1332,7 +1334,13 @@ footer {
 .article-main {
   max-width: 900px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 20px 72px;
+}
+
+@media (max-width: 768px) {
+  .article-main {
+    padding: 20px 36px;
+  }
 }
 
 .article {
@@ -1441,4 +1449,11 @@ footer {
 .highlight {
   color: #c00;
   font-size: 18px;
+}
+
+.article-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
 }
