@@ -1120,11 +1120,13 @@ footer {
 /*activity.html関連*/
 /*活動内容*/
 .activity-section {
+  max-width: 1100px;
   display: flex;
   gap: 30px;
   align-items: center;
   margin-bottom: 40px;
-  margin: 40px 0;
+  margin: 40px auto;
+  padding: 0 10px;
 }
 
 .activity-inner {
@@ -1156,8 +1158,7 @@ footer {
 .activity-image img {
   width: 100%;
   height: auto;
-  border-radius: 12px;
-  max-width: 400px;
+  border-radius: 8px;
   display: block;
 }
 
@@ -1194,13 +1195,19 @@ footer {
 }
 
 .members-intro{
-  margin-top: 0px;
+  align-items:center;
+  max-width: 1100px;
+  margin: 0px auto;
 }
 
 
 .grade {
-  margin-top: 0px;
+  align-items: center;
+  max-width: 1100px;
+  margin-top: 30px;
   margin-bottom: 50px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .grade h3 {
@@ -1240,6 +1247,13 @@ footer {
   margin-top: 6px;
 }
 
+.member-voice{
+  align-items: center;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .voice-grid {
   max-width: 1100px;
   margin: 0 auto;
@@ -1264,10 +1278,11 @@ footer {
 /*join.html関連*/
 /* ===== 入部案内 ===== */
 .join-intro {
+  max-width: 1100px;
   display: flex;
-  gap: 40px;
+  gap: 30px;
   align-items: center;
-  margin: 40px 0 60px;
+  margin: 40px auto;
 }
 
 .join-intro-text {
@@ -1283,6 +1298,13 @@ footer {
   width: 100%;
   height: auto;
   border-radius: 12px;
+}
+
+.join-section{
+  max-width: 1100px;
+  gap: 30px;
+  align-items: center;
+  margin: 40px auto;
 }
 
 .join-section h3 {
