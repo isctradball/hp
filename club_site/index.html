@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>東京科学大学 サイクリング部 ボール班</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="images/icon.png">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo">
+      <a href="index.html">
+       <img src="images/logo.jpg" alt="部活ロゴ">
+      </a>
+    </div>
+  
+    <nav class="global-nav" id="global-nav">
+      <ul class="nav-list">
+
+       <li><a href="index.html">トップ</a></li>
+
+       <li class="has-sub">
+          <a href="about.html">部活について</a>
+          <ul class="sub-menu">
+            <li><a href="about.html#sport">競技説明</a></li>
+            <li><a href="about.html#schedule">年間スケジュール</a></li>
+            <li><a href="about.html#access">アクセス</a></li>
+            <li><a href="about.html#faq">FAQ</a></li>
+          </ul>
+       </li>
+
+       <li class="has-sub">
+          <a href="activity.html">活動・実績</a>
+          <ul class="sub-menu">
+            <li><a href="activity.html#content">活動内容</a></li>
+            <li><a href="activity.html#result">戦績</a></li>
+            <li><a href="activity.html#report">活動レポート</a></li>
+            <li><a href="activity.html#news">お知らせ</a></li>
+          </ul>
+       </li>
+
+       <li class="has-sub">
+          <a href="members.html">部員紹介</a>
+          <ul class="sub-menu">
+            <li><a href="members.html">部員一覧</a></li>
+            <li><a href="members.html#voice">部員の声</a></li>
+          </ul>
+       </li>
+
+       <li class="nav-cta has-sub">
+          <a href="join.html">入部案内</a>
+          <ul class="sub-menu">
+            <li><a href="join.html#flow">見学・体験の流れ</a></li>
+            <li><a href="join.html#schedule">今月・来月の活動日</a></li>
+            <li><a href="join.html#contact">問い合わせ</a></li>
+          </ul>
+       </li>
+ 
+       </ul>
+    </nav>
+  
+    <button class="hamburger" id="hamburger">
+     <span></span>
+     <span></span>
+     <span></span>
+    </button>
+  </div>
+</header>
+
+<nav class="breadcrumb">
+  <ul>
+    <li><a href="index.html">トップ</a></li>
+    <li>トップ</li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-slide active" style="background-image: url('images/slide1.jpg');"></div>
+  <div class="hero-slide" style="background-image: url('images/slide2.jpg');"></div>
+  <div class="hero-slide" style="background-image: url('images/slide3.jpg');"></div>
+
+  <div class="hero-overlay">
+    <div class="hero-content">
+      <h1>
+        東京科学大学<br>
+        サイクリング部 ボール班
+      </h1>
+
+      <p class="hero-copy">
+        初心者から全国大会へ。<br>
+        大学から始められるサイクルサッカー
+      </p>
+
+      <div class="hero-buttons">
+        <a href="join.html" class="btn primary">入部案内を見る</a>
+        <a href="activity.html" class="btn ghost">活動内容を見る</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="poll" aria-labelledby="poll-title">
+  <h2 id="poll-title">サイクルサッカーを知っていますか？</h2>
+
+  <div class="poll-buttons" id="poll-buttons">
+    <button type="button" id="know">知っている</button>
+    <button type="button" id="dontknow">知らなかった</button>
+  </div>
+
+  <div class="poll-bars" id="poll-bars" hidden>
+
+    <div class="bar-wrapper">
+      <div class="bar-left know-bar"></div>
+      <div class="bar-right dontknow-bar"></div>
+    </div>
+
+    <div class="bar-info">
+      <span>
+        知っている <strong><span id="know-rate">0</span>%</strong>
+      </span>
+      <span>
+        知らなかった <strong><span id="dontknow-rate">0</span>%</strong>
+      </span>
+    </div>
+
+    <p class="poll-count">
+      回答数：<span id="total">0</span>
+    </p>
+    <p class="poll-your-vote" id="your-vote"></p>
+    <p class="poll-learn" id="poll-learn" hidden>
+      <a href="about.html#sport">→ サイクルサッカーについて知る</a>
+    </p>
+
+  </div>
+</section>
+
+<section class="features">
+  <div class="features-inner">
+
+    <div class="feature-item">
+      <div class="feature-icon">🔰</div>
+      <h3>初心者100%</h3>
+      <p>部員の全員が大学から競技を始めています</p>
+    </div>
+
+    <div class="feature-item">
+      <div class="feature-icon">🏆</div>
+      <h3>学生全国大会優勝</h3>
+      <p>学生大会の優勝ペアが所属</p>
+    </div>
+
+    <div class="feature-item">
+      <div class="feature-icon">🚲</div>
+      <h3>大学から始められる</h3>
+      <p>自転車・競技経験がなくても問題ありません</p>
+    </div>
+
+  </div>
+</section>
+
+
+<main>
+
+<section class="schedule-top">
+  <h2>直近の活動予定</h2>
+
+  <div class="calendar-embed calendar-compact">
+    <iframe
+      src="https://calendar.google.com/calendar/embed?src=4bdf628a7f26be83950463312de104e11ce4dc6d873a38d564600e36eaf3feb9%40group.calendar.google.com&ctz=Asia%2FTokyo&mode=AGENDA&showTitle=0&showNav=0&showTabs=0&showCalendars=0"
+      loading="lazy">
+    </iframe>
+  </div>
+  <p class="schedule-note">
+    見学・体験は随時受付中です。
+  </p>
+
+  <a href="about.html#schedule" class="news-more">
+    活動スケジュールを詳しく見る →
+  </a>
+</section>
+
+
+<section class="latest-news">
+  <h2>最新情報</h2>
+
+    <div class="news-item">
+        <h3><a href="news/2026-01-01.html">2026年 新年のごあいさつ</a></h3>
+        <p>部長より新年のごあいさつです。</p>
+    </div>
+
+    <div class="news-item">
+        <h3><a href="join.html#schedule">2026年 1月の活動日程</a></h3>
+        <p>2026年1月の活動日程が確定しました</p>
+    </div>
+
+  <a href="news.html" class="news-more">お知らせ一覧を見る →</a>
+</section>
+
+<section class="sns-area">
+  <h2>SNS</h2>
+
+  <div class="sns-container">
+    <div class="sns-box">
+      <h3>Instagram</h3>
+      <blockquote class="instagram-media"
+        data-instgrm-permalink="https://www.instagram.com/p/DSegpsAEfp-/"
+        data-instgrm-version="14">
+      </blockquote>
+    </div>
+
+    <div class="sns-box">
+      <h3>X（旧Twitter）</h3>
+      <a class="twitter-timeline"
+         href="https://x.com/titech_radball"
+         data-tweet-limit="3">
+        Tweets by titech_radball
+      </a>
+    </div>
+  </div>
+</section>
+
+<script async src="https://www.instagram.com/embed.js"></script>
+<script async src="https://platform.twitter.com/widgets.js"></script>
+  
+</main>
+
+
+<footer class="site-footer">
+  <div class="footer-inner">
+
+    <div class="footer-box">
+      <h3>東京科学大学 サイクリング部<br>ボール班</h3>
+      <p>
+        東京科学大学公認の学生団体です。<br>
+        サイクルサッカーをしています。
+      </p>
+    </div>
+
+    <div class="footer-box">
+      <h4>メニュー</h4>
+      <ul>
+        <li><a href="index.html">トップ</a></li>
+        <li><a href="about.html">部活について</a></li>
+        <li><a href="activity.html">活動・実績</a></li>
+        <li><a href="members.html">部員紹介</a></li>
+        <li><a href="join.html">入部案内</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-box">
+      <h4>コンテンツ</h4>
+      <ul>
+        <li><a href="about.html#faq">FAQ</a></li>
+        <li><a href="about.html#schedule">年間スケジュール</a></li>
+        <li><a href="results.html">戦績</a></li>
+        <li><a href="blog.html">活動レポート</a></li>
+        <li><a href="news.html">お知らせ</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-box">
+      <h4>SNS</h4>
+      <ul class="footer-sns">
+        <li><a href="https://www.instagram.com/titech.cyclesoccer_love/">Instagram</a></li>
+        <li><a href="https://x.com/titech_radball">X（旧Twitter）</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-note">
+    <p>※ 本サイトは東京科学大学サイクリング部ボール班の学生が運営しています。</p>
+    <p class="last-update">最終更新日：2025年12月</p>
+  </div>
+
+  <p class="copyright">
+    © Tokyo Institute of Science Cycling Club Radball
+  </p>
+</footer>
+
+
+
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const globalNav = document.getElementById('global-nav');
+
+  // ハンバーガー開閉
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    globalNav.classList.toggle('active');
+
+    document.body.style.overflow =
+      globalNav.classList.contains('active') ? 'hidden' : '';
+  });
+  // ===== モバイル：サブメニュー制御 =====
+  document.querySelectorAll('.has-sub > a').forEach(link => {
+    link.addEventListener('click', e => {
+      if (window.innerWidth <= 800) {
+        if (e.defaultPrevented) return;
+
+        hamburger.classList.remove('active');
+        globalNav.classList.remove('active');
+        document.body.style.overflow = '';
+
+      }
+    });
+  });
+
+  // ===== 子メニュー or 通常リンククリックで閉じる =====
+  document.querySelectorAll('.global-nav a').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 800) {
+        hamburger.classList.remove('active');
+        globalNav.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+  });
+  
+  // HEROスライド
+  let current = 0;
+  const slides = document.querySelectorAll('.hero-slide');
+
+  setInterval(() => {
+    slides[current].classList.remove('active');
+    current = (current + 1) % slides.length;
+    slides[current].classList.add('active');
+  }, 8000);
+
+</script>
+
+<!-- Firebase SDK を追加 -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
+(() => {
+  /* ===== Firebase 初期化 ===== */
+  const firebaseConfig = {
+    apiKey: "AIzaSyBi-pT86QfDl57at1BGuDvzietWSg74h1o",
+    authDomain: "cycle-soccer-poll-f59d1.firebaseapp.com",
+    projectId: "cycle-soccer-poll-f59d1",
+    storageBucket: "cycle-soccer-poll-f59d1.appspot.com",
+    messagingSenderId: "516450182936",
+    appId: "1:516450182936:web:e5e3303fcc2a0f6e6ae06d"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  /* ===== 要素 ===== */
+  const knowBtn = document.getElementById('know');
+  const dontBtn = document.getElementById('dontknow');
+
+  const buttonsBox = document.getElementById('poll-buttons');
+  const barsBox = document.getElementById('poll-bars');
+
+  const knowRateEl = document.getElementById('know-rate');
+  const dontRateEl = document.getElementById('dontknow-rate');
+  const totalEl = document.getElementById('total');
+  const yourVoteEl = document.getElementById('your-vote');
+  const learnLink = document.getElementById('poll-learn');
+
+  const knowBar = document.querySelector('.know-bar');
+  const dontBar = document.querySelector('.dontknow-bar');
+
+  const POLL_REF = db.collection('poll').doc('cycle_soccer');
+  const VOTED_KEY = 'cycle_soccer_voted';
+
+  /* ===== 結果表示更新 ===== */
+  function render(data) {
+    const total = data.know + data.dont;
+    if (total === 0) return;
+
+    const knowRate = Math.round((data.know / total) * 100);
+    const dontRate = 100 - knowRate;
+
+    knowRateEl.textContent = knowRate;
+    dontRateEl.textContent = dontRate;
+    totalEl.textContent = total;
+
+    // アニメーション
+    knowBar.style.width = '0%';
+    dontBar.style.width = '0%';
+    requestAnimationFrame(() => {
+      knowBar.style.width = knowRate + '%';
+      dontBar.style.width = dontRate + '%';
+    });
+
+    const voted = localStorage.getItem(VOTED_KEY);
+
+    knowBar.classList.remove('voted', 'not-voted');
+    dontBar.classList.remove('voted', 'not-voted');
+
+    if (voted === 'know') {
+      yourVoteEl.textContent = 'あなたの投票：知っている';
+      knowBar.classList.add('voted');
+      dontBar.classList.add('not-voted');
+      learnLink.hidden = true;
+
+      buttonsBox.style.display = 'none';
+      barsBox.hidden = false;
+    } else if (voted === 'dont') {
+      yourVoteEl.textContent = 'あなたの投票：知らなかった';
+      dontBar.classList.add('voted');
+      knowBar.classList.add('not-voted');
+      learnLink.hidden = false;
+
+      buttonsBox.style.display = 'none';
+      barsBox.hidden = false;
+    } else {
+    // 投票していない場合
+      buttonsBox.style.display = 'flex';
+      barsBox.hidden = true;
+      yourVoteEl.textContent = '';
+      learnLink.hidden = true;
+    }
+  }
+
+  /* ===== 初期取得（リアルタイム） ===== */
+  POLL_REF.onSnapshot(doc => {
+    if (doc.exists) {
+      render(doc.data());
+    } else {
+      // ドキュメントがなければ作成
+      POLL_REF.set({ know: 0, dont: 0 });
+    }
+  });
+
+  /* ===== 投票 ===== */
+  async function vote(type) {
+    if (localStorage.getItem(VOTED_KEY)) return;
+
+    try {
+      await POLL_REF.update({
+        [type]: firebase.firestore.FieldValue.increment(1)
+      });
+      localStorage.setItem(VOTED_KEY, type);
+      const doc = await POLL_REF.get();
+      if (doc.exists) render(doc.data());
+
+    } catch (err) {
+      console.error('投票に失敗しました', err);
+      alert('投票に失敗しました。管理者に連絡してください。');
+    }
+  }
+
+  knowBtn.addEventListener('click', () => vote('know'));
+  dontBtn.addEventListener('click', () => vote('dont'));
+})();
+</script>
+
+
+
+<script>
+function resetPoll() {
+  localStorage.removeItem('cycle_soccer_poll_data');
+  localStorage.removeItem('cycle_soccer_poll_voted');
+  alert('投票をリセットしました');
+}
+
+</script>
+
+<!-- 管理者用リセットボタン -->
+
+<script>
+const POLL_REF = firebase.firestore().collection('poll').doc('cycle_soccer');
+
+document.getElementById('reset-poll').addEventListener('click', async () => {
+  // 簡易認証：パスワード入力
+  const password = prompt("管理者用パスワード");
+  if (password !== "reset") return alert("パスワードが違います");
+
+  if (!confirm("本当に投票をリセットしますか？")) return;
+
+  try {
+    // Firestore 上の全投票をリセット
+    await POLL_REF.set({ know: 0, dont: 0 });
+
+    // 全ユーザーの localStorage はリセットできないので、
+    // 管理者だけは自分の localStorage をクリアして画面更新
+    localStorage.removeItem('cycle_soccer_voted');
+
+    // ページ上の表示も初期化
+    document.getElementById('poll-buttons').style.display = 'flex';
+    document.getElementById('poll-bars').hidden = true;
+    document.getElementById('your-vote').textContent = '';
+    document.getElementById('poll-learn').hidden = true;
+    document.getElementById('know-rate').textContent = '0';
+    document.getElementById('dontknow-rate').textContent = '0';
+    document.getElementById('total').textContent = '0';
+    document.querySelector('.know-bar').style.width = '0%';
+    document.querySelector('.dontknow-bar').style.width = '0%';
+
+    alert("投票をリセットしました（全ユーザー）");
+  } catch (err) {
+    console.error(err);
+    alert("リセットに失敗しました");
+  }
+});
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>
