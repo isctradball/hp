@@ -1482,3 +1482,9 @@ footer {
   }
 }
 
+.h1-sub {
+  display: block;
+  font-size: 0.6em;
+  font-weight: 400;
+  margin-top: 0.5em;
+}
