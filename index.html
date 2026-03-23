@@ -415,7 +415,6 @@
   /* ===== 結果表示更新 ===== */
   function render(data) {
     const total = data.know + data.dont;
-    if (total === 0) return;
 
     const knowRate = Math.round((data.know / total) * 100);
     const dontRate = 100 - knowRate;
@@ -499,8 +498,7 @@
 
 <script>
 function resetPoll() {
-  localStorage.removeItem('cycle_soccer_poll_data');
-  localStorage.removeItem('cycle_soccer_poll_voted');
+  localStorage.removeItem('cycle_soccer_voted');
   alert('投票をリセットしました');
 }
 
