@@ -209,18 +209,32 @@
   </a>
 </section>
 
+<section class="flyer">
+  <h2>2026年 新歓チラシ</h2>
+
+  <div class="flyer-slider">
+    <img src="images/新歓チラシ2026表.jpg" class="flyer-slide active" alt="新歓チラシ 表">
+    <img src="images/新歓チラシ2026裏.jpg" class="flyer-slide" alt="新歓チラシ 裏">
+  </div>
+
+  <div class="flyer-controls">
+    <button id="prevFlyer">‹</button>
+    <button id="nextFlyer">›</button>
+  </div>
+</section>
+
 
 <section class="latest-news">
   <h2>最新情報</h2>
 
     <div class="news-item">
-        <h3><a href="news/2026-01-01.html">2026年 新年のごあいさつ</a></h3>
-        <p>部長より新年のごあいさつです。</p>
+        <h3><a href="news/2026-03-22.html">2026年新歓について</a></h3>
+        <p>2026年に東京科学大学に入学する新入生の皆様へ</p>
     </div>
 
     <div class="news-item">
-        <h3><a href="join.html#schedule">2026年 1月の活動日程</a></h3>
-        <p>2026年1月の活動日程が確定しました</p>
+        <h3><a href="news/2026-01-01.html">2026年 新年のごあいさつ</a></h3>
+        <p>部長より新年のごあいさつです。</p>
     </div>
 
   <a href="news.html" class="news-more">お知らせ一覧を見る →</a>
@@ -233,7 +247,7 @@
     <div class="sns-box">
       <h3>Instagram</h3>
       <blockquote class="instagram-media"
-        data-instgrm-permalink="https://www.instagram.com/p/DSegpsAEfp-/"
+        data-instgrm-permalink="https://www.instagram.com/p/DUwR8o3E-9z/"
         data-instgrm-version="14">
       </blockquote>
     </div>
@@ -531,6 +545,26 @@ document.getElementById('reset-poll').addEventListener('click', async () => {
 });
 </script>
 
+<script>
+  const flyerSlides = document.querySelectorAll('.flyer-slide');
+  let flyerIndex = 0;
+
+  function showFlyer(index) {
+    flyerSlides.forEach(slide => slide.classList.remove('active'));
+    flyerSlides[index].classList.add('active');
+  }
+
+  document.getElementById('nextFlyer').addEventListener('click', () => {
+    flyerIndex = (flyerIndex + 1) % flyerSlides.length;
+    showFlyer(flyerIndex);
+  });
+
+  document.getElementById('prevFlyer').addEventListener('click', () => {
+    flyerIndex = (flyerIndex - 1 + flyerSlides.length) % flyerSlides.length;
+    showFlyer(flyerIndex);
+  });
+
+</script>
 
 
 
