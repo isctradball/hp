@@ -799,8 +799,17 @@ footer {
   gap: 30px;
 }
 
+.sns-containers {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
 @media (max-width: 768px) {
   .sns-container {
+    grid-template-columns: 1fr;
+  }
+  .sns-containers {
     grid-template-columns: 1fr;
   }
   .sns-box {
