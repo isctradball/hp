@@ -129,40 +129,6 @@
   </div>
 </section>
 
-<section class="poll" aria-labelledby="poll-title">
-  <h2 id="poll-title">サイクルサッカーを知っていますか？</h2>
-
-  <div class="poll-buttons" id="poll-buttons">
-    <button type="button" id="know">知っている</button>
-    <button type="button" id="dontknow">知らなかった</button>
-  </div>
-
-  <div class="poll-bars" id="poll-bars" hidden>
-
-    <div class="bar-wrapper">
-      <div class="bar-left know-bar"></div>
-      <div class="bar-right dontknow-bar"></div>
-    </div>
-
-    <div class="bar-info">
-      <span>
-        知っている <strong><span id="know-rate">0</span>%</strong>
-      </span>
-      <span>
-        知らなかった <strong><span id="dontknow-rate">0</span>%</strong>
-      </span>
-    </div>
-
-    <p class="poll-count">
-      回答数：<span id="total">0</span>
-    </p>
-    <p class="poll-your-vote" id="your-vote"></p>
-    <p class="poll-learn" id="poll-learn" hidden>
-      <a href="about.html#sport">→ サイクルサッカーについて知る</a>
-    </p>
-
-  </div>
-</section>
 
 <section class="features">
   <div class="features-inner">
@@ -226,18 +192,15 @@
 
 <section class="latest-news">
   <h2>最新情報</h2>
+    <div class="news-item">
+        <h3><a href="results/2026-06-14.html">2026/06/14 関東学生選手権</a></h3>
+        <p>森山・湯上ペアが優勝しました</p>
+    </div>
 
     <div class="news-item">
         <h3><a href="news/2026-03-22.html">2026年新歓について</a></h3>
         <p>2026年に東京科学大学に入学する新入生の皆様へ</p>
     </div>
-
-    <div class="news-item">
-        <h3><a href="blog/2026-03-16.html">2026 立命館合宿</a></h3>
-        <p>関西の学生と合同で合宿を行いました。</p>
-    </div>
-
-    
 
   <a href="news.html" class="news-more">お知らせ一覧を見る →</a>
 </section>
@@ -376,174 +339,9 @@
 
 </script>
 
-<!-- Firebase SDK を追加 -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
-<script>
-(() => {
-  /* ===== Firebase 初期化 ===== */
-  const firebaseConfig = {
-    apiKey: "AIzaSyBi-pT86QfDl57at1BGuDvzietWSg74h1o",
-    authDomain: "cycle-soccer-poll-f59d1.firebaseapp.com",
-    projectId: "cycle-soccer-poll-f59d1",
-    storageBucket: "cycle-soccer-poll-f59d1.appspot.com",
-    messagingSenderId: "516450182936",
-    appId: "1:516450182936:web:e5e3303fcc2a0f6e6ae06d"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-
-  /* ===== 要素 ===== */
-  const knowBtn = document.getElementById('know');
-  const dontBtn = document.getElementById('dontknow');
-
-  const buttonsBox = document.getElementById('poll-buttons');
-  const barsBox = document.getElementById('poll-bars');
-
-  const knowRateEl = document.getElementById('know-rate');
-  const dontRateEl = document.getElementById('dontknow-rate');
-  const totalEl = document.getElementById('total');
-  const yourVoteEl = document.getElementById('your-vote');
-  const learnLink = document.getElementById('poll-learn');
-
-  const knowBar = document.querySelector('.know-bar');
-  const dontBar = document.querySelector('.dontknow-bar');
-
-  const POLL_REF = db.collection('poll').doc('cycle_soccer');
-  const VOTED_KEY = 'cycle_soccer_voted';
-
-  /* ===== 結果表示更新 ===== */
-  function render(data) {
-    const total = data.know + data.dont;
-
-    const knowRate = Math.round((data.know / total) * 100);
-    const dontRate = 100 - knowRate;
-
-    knowRateEl.textContent = knowRate;
-    dontRateEl.textContent = dontRate;
-    totalEl.textContent = total;
-
-    // アニメーション
-    knowBar.style.width = '0%';
-    dontBar.style.width = '0%';
-    requestAnimationFrame(() => {
-      knowBar.style.width = knowRate + '%';
-      dontBar.style.width = dontRate + '%';
-    });
-
-    const voted = localStorage.getItem(VOTED_KEY);
-
-    knowBar.classList.remove('voted', 'not-voted');
-    dontBar.classList.remove('voted', 'not-voted');
-
-    if (voted === 'know') {
-      yourVoteEl.textContent = 'あなたの投票：知っている';
-      knowBar.classList.add('voted');
-      dontBar.classList.add('not-voted');
-      learnLink.hidden = true;
-
-      buttonsBox.style.display = 'none';
-      barsBox.hidden = false;
-    } else if (voted === 'dont') {
-      yourVoteEl.textContent = 'あなたの投票：知らなかった';
-      dontBar.classList.add('voted');
-      knowBar.classList.add('not-voted');
-      learnLink.hidden = false;
-
-      buttonsBox.style.display = 'none';
-      barsBox.hidden = false;
-    } else {
-    // 投票していない場合
-      buttonsBox.style.display = 'flex';
-      barsBox.hidden = true;
-      yourVoteEl.textContent = '';
-      learnLink.hidden = true;
-    }
-  }
-
-  /* ===== 初期取得（リアルタイム） ===== */
-  POLL_REF.onSnapshot(doc => {
-    if (doc.exists) {
-      render(doc.data());
-    } else {
-      // ドキュメントがなければ作成
-      POLL_REF.set({ know: 0, dont: 0 });
-    }
-  });
-
-  /* ===== 投票 ===== */
-  async function vote(type) {
-    if (localStorage.getItem(VOTED_KEY)) return;
-
-    try {
-      await POLL_REF.update({
-        [type]: firebase.firestore.FieldValue.increment(1)
-      });
-      localStorage.setItem(VOTED_KEY, type);
-      const doc = await POLL_REF.get();
-      if (doc.exists) render(doc.data());
-
-    } catch (err) {
-      console.error('投票に失敗しました', err);
-      alert('投票に失敗しました。管理者に連絡してください。');
-    }
-  }
-
-  knowBtn.addEventListener('click', () => vote('know'));
-  dontBtn.addEventListener('click', () => vote('dont'));
-})();
-</script>
 
 
 
-<script>
-function resetPoll() {
-  localStorage.removeItem('cycle_soccer_voted');
-  alert('投票をリセットしました');
-}
-
-</script>
-
-<!-- 管理者用リセットボタン -->
-
-<script>
-const POLL_REF = firebase.firestore().collection('poll').doc('cycle_soccer');
-
-document.getElementById('reset-poll').addEventListener('click', async () => {
-  // 簡易認証：パスワード入力
-  const password = prompt("管理者用パスワード");
-  if (password !== "reset") return alert("パスワードが違います");
-
-  if (!confirm("本当に投票をリセットしますか？")) return;
-
-  try {
-    // Firestore 上の全投票をリセット
-    await POLL_REF.set({ know: 0, dont: 0 });
-
-    // 全ユーザーの localStorage はリセットできないので、
-    // 管理者だけは自分の localStorage をクリアして画面更新
-    localStorage.removeItem('cycle_soccer_voted');
-
-    // ページ上の表示も初期化
-    document.getElementById('poll-buttons').style.display = 'flex';
-    document.getElementById('poll-bars').hidden = true;
-    document.getElementById('your-vote').textContent = '';
-    document.getElementById('poll-learn').hidden = true;
-    document.getElementById('know-rate').textContent = '0';
-    document.getElementById('dontknow-rate').textContent = '0';
-    document.getElementById('total').textContent = '0';
-    document.querySelector('.know-bar').style.width = '0%';
-    document.querySelector('.dontknow-bar').style.width = '0%';
-
-    alert("投票をリセットしました（全ユーザー）");
-  } catch (err) {
-    console.error(err);
-    alert("リセットに失敗しました");
-  }
-});
-</script>
 
 <script>
   const flyerSlides = document.querySelectorAll('.flyer-slide');
